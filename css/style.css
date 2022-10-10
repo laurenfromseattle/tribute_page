@@ -8,16 +8,31 @@
 
 /* || RESETS */
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+* {
   margin: 0;
-  padding: 0;
+}
+
+body {
+  line-height: 1.5;
 }
 
 img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
 }
 
 /* || UTILITY CLASSES */
@@ -34,6 +49,7 @@ img {
   --FF: arial, sans-serif;
   --FF-HEADINGS: "lansbury_fgregular", serif;
   --FS: clamp(1rem, 2.2vh, 1.5rem);
+  --LETTER-SPACING: 0.1rem;
 
   /* COLOR PALETTE */
   --PALETTE-RED: rgb(148, 25, 35);
@@ -44,6 +60,11 @@ img {
   --HERO-HEADING: var(--PALETTE-RED);
   --HERO-SUBHEADING: var(--PALETTE-LIGHT-1);
 
+  --NAV-BGCOLOR: var(--PALETTE-RED);
+  --NAV-COLOR: var(--PALETTE-LIGHT-1);
+
+  --BUTTON-COLOR: var(--PALETTE-RED);
+
   /* BORDERS AND SHADOWS */
   --SHADOW-DARK: 2px 2px 5px var(--PALETTE-DARK-1);
 
@@ -53,10 +74,12 @@ img {
   --P-SM: 0.5em;
   --P-MD: 1em;
   --P-LG: 1.5em;
+  --P-XL: 2em;
   --M-XS: 0.25em;
   --M-SM: 0.5em;
   --M-MD: 1em;
   --M-LG: 1.5em;
+  --M-XL: 2em;
 }
 
 /* || GENERAL STYLES */
@@ -68,21 +91,117 @@ html {
 body {
   font-family: var(--FF);
   font-size: var(--FS);
-  display: flex;
-  flex-flow: column nowrap;
+  min-height: 100vh;
 }
 
 h1,
 h2,
 h3 {
   font-family: var(--FF-HEADINGS);
-  letter-spacing: 0.1rem;
+  letter-spacing: var(--LETTER-SPACING);
+}
+
+p {
+  margin-bottom: var(--M-MD);
+}
+
+.header {
+  display: contents;
+  flex-flow: row wrap;
+}
+
+/* || HERO */
+
+.hero {
+  height: 100vh;
+  z-index: 1;
+  flex-basis: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  padding: var(--P-LG);
+
+  background-image: radial-gradient(
+      circle at 75% 35%,
+      transparent 0,
+      rgba(255, 165, 0, 0.8) 60%,
+      rgba(148, 25, 35, 0.8) 100%
+    ),
+    url("../img/asfalt-dark.png"),
+    url("../img/siamese-dream-album-cover-cropped.jpg");
+  background-repeat: no-repeat, repeat, no-repeat;
+  background-position: center, center, right top;
+  background-size: auto, auto, cover;
+}
+
+.hero__h1 {
+  font-size: 6rem;
+  display: contents;
+  color: var(--HERO-HEADING);
+  text-shadow: var(--SHADOW-DARK);
+}
+
+.hero__h1--front,
+.hero__h1--back {
+  line-height: 0.75;
+}
+
+.hero__h1--back {
+  font-size: 6rem;
+}
+
+.hero__h2 {
+  font-size: 2rem;
+  box-shadow: var(--SHADOW-DARK);
+  background-color: var(--BUTTON-COLOR);
+  padding: var(--P-XS) var(--P-LG);
+  color: var(--HERO-SUBHEADING);
+  margin: var(--M-MD) 0;
+}
+
+/* || NAV */
+
+.nav {
+  background-color: var(--NAV-BGCOLOR);
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 15%;
+  position: sticky;
+  top: 0;
+}
+
+.nav__ul {
+  height: 100vh;
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.nav__item {
+  flex-grow: 1;
+  border: 1px solid #000;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.nav__link {
+  flex-basis: 100%;
+  color: var(--NAV-COLOR);
+  text-decoration: none;
+  display: grid;
+  place-content: center;
 }
 
 /* || MAIN */
+
 .main {
   position: relative;
   display: flex;
+  margin-left: 15%;
+  padding: var(--P-SM);
   flex-flow: column nowrap;
 }
 
@@ -130,48 +249,22 @@ h3 {
   max-width: 100%;
 }
 
-/* || HERO */
+/* || TRACKS */
 
-.hero {
-  height: 100vh;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: flex-end;
-  align-items: center;
-  background-image: radial-gradient(
-      circle at 75% 35%,
-      transparent 0,
-      rgba(255, 165, 0, 0.8) 60%,
-      rgba(148, 25, 35, 0.8) 100%
-    ),
-    url("../img/asfalt-dark.png"),
-    url("../img/siamese-dream-album-cover-cropped.jpg");
-  background-repeat: no-repeat, repeat, no-repeat;
-  background-position: center, center, right top;
-  background-size: auto, auto, cover;
+.tracks {
+  counter-reset: track;
 }
 
-.hero__h1 {
-  font-size: 5em;
-  display: contents;
-  color: var(--HERO-HEADING);
-  text-shadow: var(--SHADOW-DARK);
+.track__h2 {
+  font-size: 2rem;
+  background-color: #000;
+  color: whitesmoke;
+  padding: var(--P-SM);
+  margin: -0.5rem -0.5rem 0.5rem -0.5rem;
 }
 
-.hero__h1 span {
-  margin: 0 0.5rem;
-  line-height: 0.75;
-}
-
-.hero__h1 span:first-child {
-  font-size: 1.5em;
-}
-
-.hero__h2 {
-  font-size: 2em;
-  box-shadow: var(--SHADOW-DARK);
-  background-color: var(--PALETTE-RED);
-  padding: var(--P-SM) var(--P-LG);
-  margin: var(--M-SM) 0 var(--M-LG) 0;
-  color: var(--HERO-SUBHEADING);
+.track__h2::before {
+  counter-increment: track;
+  content: "Track " counter(track);
+  padding-right: var(--P-XS);
 }
