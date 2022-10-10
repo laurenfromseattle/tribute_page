@@ -1,0 +1,177 @@
+@font-face {
+  font-family: "lansbury_fgregular";
+  src: url("../fonts/lansbury-webfont.woff2") format("woff2"),
+    url("../fonts/lansbury-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* || RESETS */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* || UTILITY CLASSES */
+
+.offscreen {
+  position: absolute;
+  left: -10000px;
+}
+
+/* || VARIABLES */
+
+:root {
+  /* FONTS */
+  --FF: arial, sans-serif;
+  --FF-HEADINGS: "lansbury_fgregular", serif;
+  --FS: clamp(1rem, 2.2vh, 1.5rem);
+
+  /* COLOR PALETTE */
+  --PALETTE-RED: rgb(148, 25, 35);
+  --PALETTE-DARK-1: #000;
+  --PALETTE-LIGHT-1: whitesmoke;
+
+  /* COLORS */
+  --HERO-HEADING: var(--PALETTE-RED);
+  --HERO-SUBHEADING: var(--PALETTE-LIGHT-1);
+
+  /* BORDERS AND SHADOWS */
+  --SHADOW-DARK: 2px 2px 5px var(--PALETTE-DARK-1);
+
+  /* PADDING AND MARGINS */
+
+  --P-XS: 0.25em;
+  --P-SM: 0.5em;
+  --P-MD: 1em;
+  --P-LG: 1.5em;
+  --M-XS: 0.25em;
+  --M-SM: 0.5em;
+  --M-MD: 1em;
+  --M-LG: 1.5em;
+}
+
+/* || GENERAL STYLES */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--FF);
+  font-size: var(--FS);
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--FF-HEADINGS);
+  letter-spacing: 0.1rem;
+}
+
+/* || MAIN */
+.main {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.footer {
+  color: whitesmoke;
+  background-color: #000;
+  padding: var(--P-SM);
+  text-align: center;
+}
+
+/* || SPOTIFY PLAYER */
+
+.player {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  max-width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  padding: var(--P-SM);
+}
+
+.player__button {
+  width: 5rem;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.player__container {
+  padding: var(--P-XS);
+  border-radius: 1rem;
+  background-color: var(--PALETTE-RED);
+  display: flex;
+  align-items: center;
+  display: none;
+}
+
+.player:hover .player__container {
+  display: flex;
+}
+
+.player__container iframe {
+  max-width: 100%;
+}
+
+/* || HERO */
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  background-image: radial-gradient(
+      circle at 75% 35%,
+      transparent 0,
+      rgba(255, 165, 0, 0.8) 60%,
+      rgba(148, 25, 35, 0.8) 100%
+    ),
+    url("../img/asfalt-dark.png"),
+    url("../img/siamese-dream-album-cover-cropped.jpg");
+  background-repeat: no-repeat, repeat, no-repeat;
+  background-position: center, center, right top;
+  background-size: auto, auto, cover;
+}
+
+.hero__h1 {
+  font-size: 5em;
+  display: contents;
+  color: var(--HERO-HEADING);
+  text-shadow: var(--SHADOW-DARK);
+}
+
+.hero__h1 span {
+  margin: 0 0.5rem;
+  line-height: 0.75;
+}
+
+.hero__h1 span:first-child {
+  font-size: 1.5em;
+}
+
+.hero__h2 {
+  font-size: 2em;
+  box-shadow: var(--SHADOW-DARK);
+  background-color: var(--PALETTE-RED);
+  padding: var(--P-SM) var(--P-LG);
+  margin: var(--M-SM) 0 var(--M-LG) 0;
+  color: var(--HERO-SUBHEADING);
+}
