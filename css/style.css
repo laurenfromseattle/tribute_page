@@ -6,6 +6,15 @@
   font-style: normal;
 }
 
+/* || BREAKPOINTS
+ *
+ * SM  ≥576px
+ * MD  ≥768px
+ * LG  ≥992px
+ * XL  ≥1200px
+ * XXL ≥1400px
+/*
+
 /* || RESETS */
 
 *,
@@ -53,19 +62,39 @@ select {
 
   /* COLOR PALETTE */
   --PALETTE-RED: rgb(148, 25, 35);
+  --PALETTE-RED-DARK: rgb(114, 23, 31);
   --PALETTE-DARK-1: #000;
   --PALETTE-LIGHT-1: whitesmoke;
 
   /* COLORS */
-  --HERO-HEADING: var(--PALETTE-RED);
-  --HERO-SUBHEADING: var(--PALETTE-LIGHT-1);
+  --HERO-HEADING-COLOR: var(--PALETTE-RED);
+  --HERO-BUTTON-COLOR: var(--PALETTE-LIGHT-1);
+  --HERO-BG: radial-gradient(
+        circle at 75% 35%,
+        transparent 0,
+        rgba(255, 165, 0, 0.8) 60%,
+        rgba(148, 25, 35, 0.8) 100%
+      )
+      no-repeat center,
+    url("../img/asfalt-dark.png") repeat center,
+    url("../img/siamese-dream-album-cover-cropped.jpg") no-repeat right top;
+  --HERO-BG-SIZE: auto, auto, cover;
 
   --NAV-BGCOLOR: var(--PALETTE-RED);
   --NAV-COLOR: var(--PALETTE-LIGHT-1);
 
-  --BUTTON-COLOR: var(--PALETTE-RED);
+  --BUTTON-BGCOLOR: var(--PALETTE-RED);
+  --BUTTON-HOVER: var(--PALETTE-RED-DARK);
+
+  --TRACK-HEADING-COLOR: var(--PALETTE-LIGHT-1);
+  --TRACK-HEADING-BGCOLOR: var(--PALETTE-DARK-1);
+  --TRACK-SUBHEADING-COLOR: var(--PALETTE-RED);
 
   /* BORDERS AND SHADOWS */
+  --BORDER-COLOR: var(--PALETTE-DARK-1);
+  --BORDER-THIN: 1px solid var(--BORDER-COLOR);
+  --BORDER-HEAVY: 3px solid var(--BORDER-COLOR);
+
   --SHADOW-DARK: 2px 2px 5px var(--PALETTE-DARK-1);
 
   /* PADDING AND MARGINS */
@@ -86,12 +115,8 @@ select {
 
 html {
   scroll-behavior: smooth;
-}
-
-body {
   font-family: var(--FF);
   font-size: var(--FS);
-  min-height: 100vh;
 }
 
 h1,
@@ -99,6 +124,7 @@ h2,
 h3 {
   font-family: var(--FF-HEADINGS);
   letter-spacing: var(--LETTER-SPACING);
+  font-weight: bold;
 }
 
 p {
@@ -107,57 +133,102 @@ p {
 
 .header {
   display: contents;
-  flex-flow: row wrap;
+  /* flex-flow: row wrap; */
 }
 
 /* || HERO */
 
 .hero {
+  position: relative;
   height: 100vh;
   z-index: 1;
-  flex-basis: 100%;
+
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
+
   padding: var(--P-LG);
 
-  background-image: radial-gradient(
-      circle at 75% 35%,
-      transparent 0,
-      rgba(255, 165, 0, 0.8) 60%,
-      rgba(148, 25, 35, 0.8) 100%
-    ),
-    url("../img/asfalt-dark.png"),
-    url("../img/siamese-dream-album-cover-cropped.jpg");
-  background-repeat: no-repeat, repeat, no-repeat;
-  background-position: center, center, right top;
-  background-size: auto, auto, cover;
+  background: var(--HERO-BG);
+  background-size: var(--HERO-BG-SIZE);
+
+  box-shadow: var(--SHADOW-DARK);
 }
 
-.hero__h1 {
-  font-size: 6rem;
+.hero__heading {
   display: contents;
-  color: var(--HERO-HEADING);
+  color: var(--HERO-HEADING-COLOR);
   text-shadow: var(--SHADOW-DARK);
 }
 
-.hero__h1--front,
-.hero__h1--back {
+.hero__heading--front,
+.hero__heading--back {
   line-height: 0.75;
+  position: relative;
 }
 
-.hero__h1--back {
+.hero__heading--front {
+  font-size: 7rem;
+  opacity: 0;
+  animation: 0.5s ease-in-out 2s forwards dropText;
+}
+
+.hero__heading--back {
   font-size: 6rem;
+  opacity: 0;
+  animation: 0.5s ease-in-out 2s forwards raiseText;
 }
 
-.hero__h2 {
+@keyframes dropText {
+  from {
+    top: -3rem;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes raiseText {
+  from {
+    top: 3rem;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.hero__link {
+  font-family: var(--FF-HEADINGS);
+  font-weight: bold;
   font-size: 2rem;
   box-shadow: var(--SHADOW-DARK);
-  background-color: var(--BUTTON-COLOR);
-  padding: var(--P-XS) var(--P-LG);
-  color: var(--HERO-SUBHEADING);
+  background-color: var(--BUTTON-BGCOLOR);
+  padding: 0 var(--P-LG);
+  color: var(--HERO-SUBHEADING-COLOR);
   margin: var(--M-MD) 0;
+  text-decoration: none;
+  transform: rotateX(90deg);
+  animation: 1s ease-in-out 3s forwards flipIn;
+}
+
+@keyframes flipIn {
+  from {
+    opacity: 0;
+    transform: rotateX(90deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0);
+  }
+}
+
+.hero__link:hover {
+  background-color: var(--BUTTON-HOVER);
 }
 
 /* || NAV */
@@ -168,7 +239,7 @@ p {
   display: flex;
   flex-flow: column nowrap;
   width: 15%;
-  position: sticky;
+  position: fixed;
   top: 0;
 }
 
@@ -201,7 +272,7 @@ p {
   position: relative;
   display: flex;
   margin-left: 15%;
-  padding: var(--P-SM);
+  padding: 0 var(--P-SM) var(--P-SM) var(--P-SM);
   flex-flow: column nowrap;
 }
 
@@ -212,9 +283,77 @@ p {
   text-align: center;
 }
 
+/* || TRACKS */
+
+.tracks {
+  counter-reset: track;
+}
+
+.track__article {
+  position: relative;
+}
+
+.track__heading {
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  font-size: 2rem;
+  background-color: var(--TRACK-HEADING-BGCOLOR);
+  color: var(--TRACK-HEADING-COLOR);
+  padding: var(--P-SM);
+  margin: 0.5rem -0.5rem;
+}
+
+.track__heading:first-child {
+  margin-top: 0;
+}
+
+.track__heading::before {
+  counter-increment: track;
+  content: "Track " counter(track);
+  padding-right: var(--P-XS);
+}
+
+.track__subheading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--TRACK-SUBHEADING-COLOR);
+}
+
+.video__caption {
+  background-color: var(--PALETTE-DARK-1);
+  color: var(--PALETTE-LIGHT-1);
+  /* font-weight: bold; */
+  padding: var(--P-XS) var(--P-SM);
+  letter-spacing: var(--LETTER-SPACING);
+  font-size: 0.8rem;
+}
+
+.track__videos {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: var(--M-MD);
+}
+
+.video__container {
+  flex-basis: 350px;
+  flex-grow: 1;
+  aspect-ratio: 16 / 9;
+}
+
+.video__iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* || SPOTIFY PLAYER */
 
 .player {
+  z-index: 1;
   position: sticky;
   bottom: 0;
   right: 0;
@@ -249,22 +388,32 @@ p {
   max-width: 100%;
 }
 
-/* || TRACKS */
+/* || FOOTER */
 
-.tracks {
-  counter-reset: track;
+.footer p {
+  margin-bottom: 0;
 }
 
-.track__h2 {
-  font-size: 2rem;
-  background-color: #000;
-  color: whitesmoke;
-  padding: var(--P-SM);
-  margin: -0.5rem -0.5rem 0.5rem -0.5rem;
-}
+/* || MEDIA QUERIES */
 
-.track__h2::before {
-  counter-increment: track;
-  content: "Track " counter(track);
-  padding-right: var(--P-XS);
+@media screen and (min-width: 768px) {
+  .nav {
+    height: auto;
+    position: relative;
+    width: 100%;
+  }
+
+  .nav__ul {
+    height: 5rem;
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+  }
+
+  .main {
+    margin-left: 0;
+  }
+
+  .track__heading {
+    margin-left: -0.5rem;
+  }
 }
