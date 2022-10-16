@@ -448,6 +448,11 @@ a[data-youtube] span {
         top: 100px;
         z-index: 0;
     }
+
+    .video__container,
+    a[data-youtube] {
+        flex-basis: calc(50% - 0.5rem);
+    }
 }
 
 @media screen and (min-width: 992px) {
