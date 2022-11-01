@@ -70,12 +70,11 @@ select {
     --HERO-HEADING-COLOR: var(--PALETTE-RED);
     --HERO-BUTTON-COLOR: var(--PALETTE-LIGHT-1);
     --HERO-BG: radial-gradient(
-                circle at 75% 35%,
-                transparent 0,
-                rgba(255, 165, 0, 0.8) 60%,
-                rgba(148, 25, 35, 0.8) 100%
-            )
-            no-repeat center,
+            circle at 70% 35%,
+            transparent 0,
+            rgba(255, 165, 0, 0.8) 60%,
+            rgba(148, 25, 35, 0.8) 80%
+        ),
         url("../img/asfalt-dark.png") repeat center,
         url("../img/siamese-dream-album-cover-cropped.jpg") no-repeat right top;
     --HERO-BG-SIZE: auto, auto, cover;
@@ -155,6 +154,8 @@ p {
     background-size: var(--HERO-BG-SIZE);
 
     box-shadow: var(--SHADOW-DARK);
+    background-position-y: -1px;
+    bottom: -1px;
 }
 
 .hero__heading {
@@ -395,6 +396,7 @@ a[data-youtube] span {
     display: none;
 }
 
+.player__container.open,
 .player:hover .player__container {
     display: flex;
 }

@@ -56,3 +56,17 @@ const year = document.getElementById("year");
 const thisYear = new Date().getFullYear();
 year.setAttribute("datetime", thisYear);
 year.textContent = thisYear;
+
+/* * * * * * * *
+ * SPOTIFY PLAYER
+ * * * * * * * */
+
+function togglePlayer() {
+    const button = document.getElementById("player__button");
+    const container = document.getElementById("player__container");
+    if (container.classList.contains("open")) {
+        container.classList.remove("open");
+    } else {
+        container.classList.add("open");
+    }
+}

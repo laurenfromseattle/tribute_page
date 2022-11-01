@@ -1202,7 +1202,11 @@
             </section>
 
             <section class="player">
-                <figure class="player__button">
+                <figure
+                    id="player__button"
+                    class="player__button"
+                    onclick="togglePlayer()"
+                >
                     <img
                         src="img/sp-heart-logo-red.svg"
                         alt="The Smashing Pumpkins heart logo: click to
@@ -1213,7 +1217,7 @@
                         Spotify.
                     </figurecaption>
                 </figure>
-                <div class="player__container">
+                <div id="player__container" class="player__container">
                     <iframe
                         style="border-radius: 12px"
                         src="https://open.spotify.com/embed/album/0bQglEvsHphrS19FGODEGo?utm_source=generator&theme=0"
