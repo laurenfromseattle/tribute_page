@@ -314,7 +314,7 @@ p {
 
 .track__heading::before {
     counter-increment: track;
-    content: "Track " counter(track);
+    content: "Track " counter(track) ":";
     padding-right: var(--P-XS);
 }
 
