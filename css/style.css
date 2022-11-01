@@ -275,7 +275,8 @@ p {
     display: flex;
     margin-left: 15%;
     padding: 0 var(--P-SM) var(--P-SM) var(--P-SM);
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
+    justify-content: flex-end;
 }
 
 .footer {
@@ -289,6 +290,7 @@ p {
 
 .tracks {
     counter-reset: track;
+    flex-basis: 100%;
 }
 
 .track__article {
